@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="КнижныйModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Корзина">
+    <Key>
+      <PropertyRef Name="Номер_корзины" />
+    </Key>
+    <Property Name="Номер_корзины" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_товара" Type="Int32" Nullable="false" />
+    <Property Name="Количество" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Товар" Relationship="Self.FK_Корзина_Товар" FromRole="Корзина" ToRole="Товар" />
+    <NavigationProperty Name="Покупка" Relationship="Self.FK_Покупка_Корзина" FromRole="Корзина" ToRole="Покупка" />
+    <Property Name="Номер_операции" Type="Int32" />
+  </EntityType>
+  <EntityType Name="лого">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="screen" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="screen_format" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Товар" Relationship="Self.FK_Товар_лого" FromRole="лого" ToRole="Товар" />
+  </EntityType>
+  <EntityType Name="Отдел">
+    <Key>
+      <PropertyRef Name="номер_отдела" />
+    </Key>
+    <Property Name="номер_отдела" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="название_отдела" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Продавец" Relationship="Self.FK_Продавец_Отдел" FromRole="Отдел" ToRole="Продавец" />
+  </EntityType>
+  <EntityType Name="Покупатель">
+    <Key>
+      <PropertyRef Name="Индивидуальный_номер_заказа" />
+    </Key>
+    <Property Name="Индивидуальный_номер_заказа" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ФИО" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Номер_Телефона" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Покупка" Relationship="Self.FK_Покупка_Покупатель" FromRole="Покупатель" ToRole="Покупка" />
+  </EntityType>
+  <EntityType Name="Покупка">
+    <Key>
+      <PropertyRef Name="ID_операции" />
+    </Key>
+    <Property Name="ID_операции" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_статуса" Type="Int32" Nullable="false" />
+    <Property Name="ID_номер" Type="Int32" Nullable="false" />
+    <Property Name="Индивидуальный_номер_заказа" Type="Int32" Nullable="false" />
+    <Property Name="Номер_корзины" Type="Int32" Nullable="false" />
+    <Property Name="Итоговая_стоимость" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Корзина" Relationship="Self.FK_Покупка_Корзина" FromRole="Покупка" ToRole="Корзина" />
+    <NavigationProperty Name="Покупатель" Relationship="Self.FK_Покупка_Покупатель" FromRole="Покупка" ToRole="Покупатель" />
+    <NavigationProperty Name="Продавец" Relationship="Self.FK_Покупка_Продавец" FromRole="Покупка" ToRole="Продавец" />
+    <NavigationProperty Name="Статус" Relationship="Self.FK_Покупка_Статус" FromRole="Покупка" ToRole="Статус" />
+  </EntityType>
+  <EntityType Name="Продавец">
+    <Key>
+      <PropertyRef Name="ID_номер" />
+    </Key>
+    <Property Name="ID_номер" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Номер_отдела" Type="Int32" Nullable="false" />
+    <Property Name="ФИО" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Пароль" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Отдел" Relationship="Self.FK_Продавец_Отдел" FromRole="Продавец" ToRole="Отдел" />
+    <NavigationProperty Name="Покупка" Relationship="Self.FK_Покупка_Продавец" FromRole="Продавец" ToRole="Покупка" />
+  </EntityType>
+  <EntityType Name="Статус">
+    <Key>
+      <PropertyRef Name="ID_статуса" />
+    </Key>
+    <Property Name="ID_статуса" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Статус_покупки" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Покупка" Relationship="Self.FK_Покупка_Статус" FromRole="Статус" ToRole="Покупка" />
+  </EntityType>
+  <EntityType Name="Товар">
+    <Key>
+      <PropertyRef Name="ID_товара" />
+    </Key>
+    <Property Name="ID_товара" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Наименование" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Жанр" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Стоимость_одной" Type="Double" Nullable="false" />
+    <Property Name="Картинка" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Корзина" Relationship="Self.FK_Корзина_Товар" FromRole="Товар" ToRole="Корзина" />
+    <NavigationProperty Name="лого" Relationship="Self.FK_Товар_лого" FromRole="Товар" ToRole="лого" />
+    <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Корзина_Товар">
+    <End Role="Товар" Type="Self.Товар" Multiplicity="1" />
+    <End Role="Корзина" Type="Self.Корзина" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Товар">
+        <PropertyRef Name="ID_товара" />
+      </Principal>
+      <Dependent Role="Корзина">
+        <PropertyRef Name="ID_товара" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Покупка_Корзина">
+    <End Role="Корзина" Type="Self.Корзина" Multiplicity="1" />
+    <End Role="Покупка" Type="Self.Покупка" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Корзина">
+        <PropertyRef Name="Номер_корзины" />
+      </Principal>
+      <Dependent Role="Покупка">
+        <PropertyRef Name="Номер_корзины" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Товар_лого">
+    <End Role="лого" Type="Self.лого" Multiplicity="1" />
+    <End Role="Товар" Type="Self.Товар" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="лого">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Товар">
+        <PropertyRef Name="Картинка" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Продавец_Отдел">
+    <End Role="Отдел" Type="Self.Отдел" Multiplicity="1" />
+    <End Role="Продавец" Type="Self.Продавец" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Отдел">
+        <PropertyRef Name="номер_отдела" />
+      </Principal>
+      <Dependent Role="Продавец">
+        <PropertyRef Name="Номер_отдела" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Покупка_Покупатель">
+    <End Role="Покупатель" Type="Self.Покупатель" Multiplicity="1" />
+    <End Role="Покупка" Type="Self.Покупка" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Покупатель">
+        <PropertyRef Name="Индивидуальный_номер_заказа" />
+      </Principal>
+      <Dependent Role="Покупка">
+        <PropertyRef Name="Индивидуальный_номер_заказа" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Покупка_Продавец">
+    <End Role="Продавец" Type="Self.Продавец" Multiplicity="1" />
+    <End Role="Покупка" Type="Self.Покупка" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Продавец">
+        <PropertyRef Name="ID_номер" />
+      </Principal>
+      <Dependent Role="Покупка">
+        <PropertyRef Name="ID_номер" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Покупка_Статус">
+    <End Role="Статус" Type="Self.Статус" Multiplicity="1" />
+    <End Role="Покупка" Type="Self.Покупка" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Статус">
+        <PropertyRef Name="ID_статуса" />
+      </Principal>
+      <Dependent Role="Покупка">
+        <PropertyRef Name="ID_статуса" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="КнижныйEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Корзина" EntityType="Self.Корзина" />
+    <EntitySet Name="лого" EntityType="Self.лого" />
+    <EntitySet Name="Отдел" EntityType="Self.Отдел" />
+    <EntitySet Name="Покупатель" EntityType="Self.Покупатель" />
+    <EntitySet Name="Покупка" EntityType="Self.Покупка" />
+    <EntitySet Name="Продавец" EntityType="Self.Продавец" />
+    <EntitySet Name="Статус" EntityType="Self.Статус" />
+    <EntitySet Name="Товар" EntityType="Self.Товар" />
+    <AssociationSet Name="FK_Корзина_Товар" Association="Self.FK_Корзина_Товар">
+      <End Role="Товар" EntitySet="Товар" />
+      <End Role="Корзина" EntitySet="Корзина" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Покупка_Корзина" Association="Self.FK_Покупка_Корзина">
+      <End Role="Корзина" EntitySet="Корзина" />
+      <End Role="Покупка" EntitySet="Покупка" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Товар_лого" Association="Self.FK_Товар_лого">
+      <End Role="лого" EntitySet="лого" />
+      <End Role="Товар" EntitySet="Товар" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Продавец_Отдел" Association="Self.FK_Продавец_Отдел">
+      <End Role="Отдел" EntitySet="Отдел" />
+      <End Role="Продавец" EntitySet="Продавец" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Покупка_Покупатель" Association="Self.FK_Покупка_Покупатель">
+      <End Role="Покупатель" EntitySet="Покупатель" />
+      <End Role="Покупка" EntitySet="Покупка" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Покупка_Продавец" Association="Self.FK_Покупка_Продавец">
+      <End Role="Продавец" EntitySet="Продавец" />
+      <End Role="Покупка" EntitySet="Покупка" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Покупка_Статус" Association="Self.FK_Покупка_Статус">
+      <End Role="Статус" EntitySet="Статус" />
+      <End Role="Покупка" EntitySet="Покупка" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

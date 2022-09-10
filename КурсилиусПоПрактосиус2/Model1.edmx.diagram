@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="01383a6226bd42c19024d52adb86f5a9" Name="Diagram1">
+        <EntityTypeShape EntityType="КнижныйModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="КнижныйModel.Корзина" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="КнижныйModel.лого" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="КнижныйModel.Отдел" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="КнижныйModel.Покупатель" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="КнижныйModel.Покупка" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="КнижныйModel.Продавец" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="КнижныйModel.Статус" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="КнижныйModel.Товар" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="КнижныйModel.FK_Корзина_Товар" ManuallyRouted="false" />
+        <AssociationConnector Association="КнижныйModel.FK_Покупка_Корзина" ManuallyRouted="false" />
+        <AssociationConnector Association="КнижныйModel.FK_Товар_лого" ManuallyRouted="false" />
+        <AssociationConnector Association="КнижныйModel.FK_Продавец_Отдел" ManuallyRouted="false" />
+        <AssociationConnector Association="КнижныйModel.FK_Покупка_Покупатель" ManuallyRouted="false" />
+        <AssociationConnector Association="КнижныйModel.FK_Покупка_Продавец" ManuallyRouted="false" />
+        <AssociationConnector Association="КнижныйModel.FK_Покупка_Статус" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
